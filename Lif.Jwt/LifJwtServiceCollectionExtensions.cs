@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Lif.Jwt
 {
-    public static class JwtServiceCollectionExtensions
+    public static class LifJwtServiceCollectionExtensions
     {
         public static IServiceCollection AddLifJwt(this IServiceCollection services, Action<LifJwtOptions> configureOptions)
         {

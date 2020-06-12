@@ -10,14 +10,14 @@ namespace Lif.Jwt
         public static IServiceCollection AddLifJwt(this IServiceCollection services, Action<LifJwtOptions> configureOptions)
         {
             var lifJwtOptions = new LifJwtOptions();
+            configureOptions?.Invoke(lifJwtOptions);
+            services.AddHttpContextAccessor();
             services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(jwtBearerOptions =>
             {
-                configureOptions?.Invoke(lifJwtOptions);
-
                 jwtBearerOptions.RequireHttpsMetadata = false;
                 jwtBearerOptions.SaveToken = true;
                 jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
@@ -29,6 +29,8 @@ namespace Lif.Jwt
                     ClockSkew = TimeSpan.Zero
                 };
             });
+
+            services.AddScoped(lifJwtOptions.UserService);
             return services;
         }
     }

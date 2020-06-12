@@ -8,5 +8,4 @@
       <ProjectReference Include="..\Lif.Jwt\Lif.Jwt.csproj" />
     </ItemGroup>
 
-
 </Project>
